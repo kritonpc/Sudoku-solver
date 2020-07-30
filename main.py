@@ -1,8 +1,14 @@
 from tabulate import tabulate
 import cv2
 import time
+import sys
 
-ANIMATE = True
+if len(sys.argv) == 2 and sys.argv[1]=='-a':
+    ANIMATE = True
+else:
+    ANIMATE = False
+
+
 
 def printText(sudoku_board):
     bg = cv2.imread('grid.jpg')
