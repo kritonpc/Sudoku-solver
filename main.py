@@ -1,12 +1,13 @@
 from tabulate import tabulate
 import cv2
 import time
-import sys
+import argparse
 
-if len(sys.argv) == 2 and sys.argv[1]=='-a':
-    ANIMATE = True
-else:
-    ANIMATE = False
+parser = argparse.ArgumentParser(description='ddqn')
+parser.add_argument('--ani', action="store_true",help='Option to animate.')
+parser.add_argument('--speed', type=int, default=1000, help='Speed of animation')
+args = parser.parse_args()
+
 
 
 
@@ -29,7 +30,7 @@ def printText(sudoku_board):
 
     cv2.imshow(window_name, bg)  
     cv2.waitKey(1)
-    time.sleep(0.0001)
+    time.sleep(float(1/args.speed))
 
 
 # A 9x9 matrix which represents our sudoku solver
@@ -93,7 +94,7 @@ def solver():
     for num in range(1,10):
         if valid_number_check(num, i, j):
             sudoku_board[i][j] = num
-            if ANIMATE:
+            if args.ani:
             	printText(sudoku_board)
             
             #Backtracking (checking the next step)
