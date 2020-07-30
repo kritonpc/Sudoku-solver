@@ -1,4 +1,30 @@
 from tabulate import tabulate
+import cv2
+import time
+
+ANIMATE = True
+
+def printText(sudoku_board):
+    bg = cv2.imread('grid.jpg')
+    window_name = 'Sudoku'
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    fontScale = 2
+    color = (0, 0, 0)
+    start = (50,90)
+    thickness = 2
+    space = 79
+    for y in range(9):
+    	for x in range(9):
+    		if sudoku_board[y][x] == 0:
+    			num = ' '
+    		else:
+    			num = str(sudoku_board[y][x])
+    		image = cv2.putText(bg, num, (50+x*space,90+y*space), font, fontScale, color, thickness, cv2.LINE_AA)
+
+    cv2.imshow(window_name, bg)  
+    cv2.waitKey(1)
+    time.sleep(0.0001)
+
 
 # A 9x9 matrix which represents our sudoku solver
 sudoku_board = [
@@ -61,6 +87,8 @@ def solver():
     for num in range(1,10):
         if valid_number_check(num, i, j):
             sudoku_board[i][j] = num
+            if ANIMATE:
+            	printText(sudoku_board)
             
             #Backtracking (checking the next step)
             if solver():
@@ -73,7 +101,10 @@ def solver():
 
 display_board(sudoku_board)
 
+
 if solver():
     display_board(sudoku_board)
+    printText(sudoku_board)
+    cv2.waitKey(0)
 else:
     print("no solution available")
