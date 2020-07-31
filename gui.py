@@ -17,19 +17,16 @@ def getGrid():
         [4,0,7,0,5,0,0,0,0]
     ]
     ret = sudoku_grid_in
-    def display_board(sudoku_board):
-        print(tabulate(sudoku_board, tablefmt='fancy_grid'))
  
     def clickMe():
-        print(sudoku_grid)
         for i in range(9):
             for j in range(9):
-                flex[i][j]=sudoku_grid[i][j].get()
-                if flex[i][j] == '':
-                    flex[i][j] = 0
+                grid[i][j]=sudoku_grid[i][j].get()
+                if grid[i][j] == '':
+                    grid[i][j] = 0
                 else:
-                    flex[i][j] = int(flex[i][j])
-        ret = flex
+                    grid[i][j] = int(grid[i][j])
+        ret = grid
         window.destroy()
     
     
@@ -41,7 +38,7 @@ def getGrid():
 
 
     sudoku_grid = sudoku_grid_in
-    flex = sudoku_grid
+    grid = sudoku_grid
     name = sudoku_grid
     size = 35
     # nameEntered = ttk.Entry(window, width = 5, textvariable = name)
@@ -49,7 +46,7 @@ def getGrid():
     for i in range(9):
             for j in range(9):
             	name[i][j] = tk.StringVar()
-            	sudoku_grid[i][j] = ttk.Entry(window, width = 3, textvariable = name[i][j])
+            	sudoku_grid[i][j] = ttk.Entry(window, width = 3, textvariable = name[i][j], justify='center')
             	sudoku_grid[i][j].place(x = 5+j*size ,y = 5 + i*size, height=size, width=size)
      
     button = ttk.Button(window, text = "Solve", command = clickMe)
