@@ -12,7 +12,7 @@ parser.add_argument('--size', type=int, default=3, help='Size of grid. Available
 args = parser.parse_args()
 
 
-def convertGrid():
+def convertGrid(sudoku_board):
     for i in range(args.size * args.size):
         for j in range(args.size * args.size):
             if sudoku_board[i][j] == 'A': sudoku_board[i][j] = 10 
@@ -27,7 +27,7 @@ def convertGrid():
 def printText(sudoku_board):
     if args.size == 4:
         bg = cv2.imread('grid16x16.jpg')
-        convertGrid()
+        convertGrid(sudoku_board)
     else:
         bg = cv2.imread('grid3x3.jpg')
     window_name = 'Sudoku'
@@ -105,10 +105,10 @@ sudoku_board_4 = [
 if args.size in (3,4):
     print(f'Starting with grid size{args.size*args.size}x{args.size*args.size}')
     if args.size == 4:
-        sudoku_board = sudoku_board_4
-        convertGrid()
+        sudoku_board = getGrid(16)
+        convertGrid(sudoku_board_4)
     else:
-        sudoku_board = getGrid()
+        sudoku_board = getGrid(9)
 else:
     print(f'There is no Setting for {args.size*args.size}x{args.size*args.size}')
     sys.exit(0)
