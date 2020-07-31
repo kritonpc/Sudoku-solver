@@ -1,4 +1,5 @@
 from tabulate import tabulate
+from gui import getGrid
 import cv2
 import time
 import argparse
@@ -107,7 +108,7 @@ if args.size in (3,4):
         sudoku_board = sudoku_board_4
         convertGrid()
     else:
-        sudoku_board = sudoku_board_3
+        sudoku_board = getGrid()
 else:
     print(f'There is no Setting for {args.size*args.size}x{args.size*args.size}')
     sys.exit(0)
@@ -178,6 +179,7 @@ display_board(sudoku_board)
 if solver():
     display_board(sudoku_board)
     printText(sudoku_board)
+    print('Done')
     cv2.waitKey(0)
 else:
     print("no solution available")
